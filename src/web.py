@@ -91,7 +91,8 @@ def get_local_ip_addresses():
 
 if __name__ == '__main__':
     IP_ADDRESS = '0.0.0.0'  # default listen in all interfaces
-    url = 'http://{host}:{port}'.format(host=IP_ADDRESS, port=PORT)
-    webbrowser.open(url)
-    print(' * Opening web browser at %s, please wait ...' % url)
+    for addr in get_local_ip_addresses():
+        print(' * %s' % addr)
+        text = pyqrcode.create('http://{}:{}'.format(addr, PORT))
+        print(text.terminal())
     run_pysenteishon(IP_ADDRESS, PORT, debug=False)
